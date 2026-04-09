@@ -1,0 +1,14 @@
+langchain>=1.0.0,<2
+langchain-openai>=0.3.0
+langgraph>=0.2.0
+python-dotenv
+google-auth-oauthlib
+google-auth-httplib2
+google-api-python-client
+slack-sdk
+slack-bolt
+ddgs
+requests
+openai
+pydantic
+

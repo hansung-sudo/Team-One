@@ -1,0 +1,11 @@
+.env
+credentials.json
+client_secret*.json
+token.json
+__pycache__/
+*.pyc
+.venv/
+*.md
+/calendar-slack-agent/client_secret_214367110289-9d72ib0ldpbqik3uibuhd51sl4rl60jp.apps.googleusercontent.com.json
+/calendar-slack-agent/token.json
+/calendar-slack-agent/.env

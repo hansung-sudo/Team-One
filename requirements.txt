@@ -1,0 +1,7 @@
+langchain
+langchain-openai
+langchain-community
+langgraph
+wikipedia
+typing_extensions
+python-dotenv
