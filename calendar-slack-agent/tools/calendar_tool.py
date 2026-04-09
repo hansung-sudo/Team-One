@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from google.auth.exceptions import RefreshError
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -33,11 +34,21 @@ def get_calendar_service():
     creds = None
     cred_file = _credentials_path()
     if _TOKEN_PATH.is_file():
-        creds = Credentials.from_authorized_user_file(str(_TOKEN_PATH), SCOPES)
+        try:
+            creds = Credentials.from_authorized_user_file(str(_TOKEN_PATH), SCOPES)
+        except Exception:
+            creds = None
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
+            try:
+                creds.refresh(Request())
+            except RefreshError:
+                creds = None
         else:
+            creds = None
+        if creds is None:
+            if _TOKEN_PATH.is_file():
+                _TOKEN_PATH.unlink(missing_ok=True)
             flow = InstalledAppFlow.from_client_secrets_file(str(cred_file), SCOPES)
             creds = flow.run_local_server(port=0)
         with open(_TOKEN_PATH, "w", encoding="utf-8") as f:
